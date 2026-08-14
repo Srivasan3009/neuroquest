@@ -62,7 +62,7 @@ export default function SignIn() {
       </div>
 
       <div className="scroll" style={{ flex: 1, minHeight: 0 }}>
-        <div style={{ padding: 24, paddingTop: 32 }}>
+        <div className="content-col" style={{ padding: 24, paddingTop: 32 }}>
           <div
             style={{
               fontSize: 22,

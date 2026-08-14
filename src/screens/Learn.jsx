@@ -18,6 +18,7 @@ export default function Learn({ openLesson }) {
 
       <div className="scroll" style={{ flex: 1, minHeight: 0 }}>
         <div
+          className="content-col"
           style={{
             paddingTop: 16,
             paddingBottom: WEB_TAB_MENU_PADDING,

@@ -38,7 +38,7 @@ export default function Leaderboard() {
       </div>
 
       <div className="scroll" style={{ flex: 1, zIndex: 5, minHeight: 0 }}>
-        <div style={{ paddingTop: 16, paddingBottom: WEB_TAB_MENU_PADDING, paddingHorizontal: 16 }}>
+        <div className="content-col" style={{ paddingTop: 16, paddingBottom: WEB_TAB_MENU_PADDING, paddingHorizontal: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: 20 }}>
             {[1, 0, 2].map((ri) => {
               const user = MOCK_LEADERBOARD[ri];

@@ -198,7 +198,7 @@ export default function Lesson({ lessonId = 'l-001' }) {
 
       <div style={{ flex: 1, minHeight: 0, position: 'relative' }}>
         <div className="scroll" style={{ height: '100%' }}>
-          <div style={{ padding: 20, paddingBottom: 140 }}>
+          <div className="content-col" style={{ padding: 20, paddingBottom: 140 }}>
             <div style={{ marginBottom: 24 }}>
               <div style={{ backgroundColor: courseColor + '15', borderRadius: 12, padding: 16, marginBottom: 20 }}>
                 <div

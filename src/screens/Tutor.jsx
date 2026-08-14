@@ -109,7 +109,7 @@ export default function Tutor() {
       </div>
 
       <div ref={scrollRef} className="scroll" style={{ flex: 1, minHeight: 0, position: 'relative', zIndex: 5 }}>
-        <div style={{ padding: 16, paddingBottom: 8 }}>
+        <div className="content-col" style={{ padding: 16, paddingBottom: 8 }}>
           {messages.map((msg) => {
             const isUser = msg.role === 'user';
             return (

@@ -35,7 +35,10 @@ export default function LessonComplete({ params = {} }) {
             alignItems: 'center',
             justifyContent: 'center',
             padding: 32,
-            paddingTop: 40
+            paddingTop: 40,
+            maxWidth: 560,
+            width: '100%',
+            margin: '0 auto'
           }}
         >
           <div style={{ fontSize: 72, marginBottom: 16, textAlign: 'center' }}>

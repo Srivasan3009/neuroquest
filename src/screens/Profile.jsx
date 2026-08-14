@@ -296,7 +296,7 @@ export default function Profile() {
       </div>
 
       <div className="scroll" style={{ flex: 1, minHeight: 0, position: 'relative', zIndex: 5 }}>
-        <div style={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: WEB_TAB_MENU_PADDING }}>
+        <div className="content-col" style={{ paddingHorizontal: 16, paddingTop: 16, paddingBottom: WEB_TAB_MENU_PADDING }}>
           <div style={{ ...glassCard, marginBottom: 16 }}>
             <div
               style={{

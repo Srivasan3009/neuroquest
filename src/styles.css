@@ -21,13 +21,13 @@ body {
   overflow: hidden;
 }
 
-/* Responsive app frame: full width on phones, fills desktop screens,
-   and stretches up to 1200px wide (centered) on larger monitors. */
+/* Responsive app frame: full width on phones, fills the whole desktop window
+   (capped at 1500px so it never looks absurd on ultra-wide monitors). */
 .app-frame {
   position: relative;
   height: 100%;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
   background: #f8f7ff;
   display: flex;
@@ -37,11 +37,19 @@ body {
 
 @media (min-width: 700px) {
   .app-frame {
-    height: calc(100vh - 32px);
-    margin: 16px auto;
-    border-radius: 18px;
+    height: calc(100vh - 24px);
+    margin: 12px auto;
+    border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.14);
   }
+}
+
+/* Keeps content readable: centered column even when the window is very wide,
+   so cards, questions and buttons never get stretched across the screen. */
+.content-col {
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
 }
 
 .frame-root {

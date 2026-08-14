@@ -105,7 +105,7 @@ export default function Home({ goTab, openLesson }) {
       </div>
 
       <div className="scroll" style={{ flex: 1, zIndex: 5, minHeight: 0 }}>
-        <div style={{ paddingTop: 16, paddingBottom: scrollPad, paddingHorizontal: 16 }}>
+        <div className="content-col" style={{ paddingTop: 16, paddingBottom: scrollPad, paddingHorizontal: 16 }}>
           <div style={{ ...glassCard, marginBottom: 16, boxShadow: '0 8px 16px rgba(99,102,241,0.15)' }}>
             <div
               style={{
