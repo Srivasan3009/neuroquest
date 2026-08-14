@@ -11,7 +11,6 @@ import Profile from './screens/Profile';
 import Lesson from './screens/Lesson';
 import LessonComplete from './screens/LessonComplete';
 import BottomTabBar from './components/BottomTabBar';
-import { PRIMARY } from './theme';
 
 // Port of RootNavigator + MainNavigator + TabNavigator.
 function MainApp() {
@@ -42,14 +41,33 @@ function Splash() {
     <div
       style={{
         flex: 1,
-        backgroundColor: PRIMARY,
+        background: '#0B0F1F',
+        backgroundImage:
+          'radial-gradient(600px 400px at 30% 20%, rgba(99,102,241,0.5), transparent 60%), radial-gradient(500px 400px at 75% 75%, rgba(232,179,75,0.25), transparent 60%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column'
       }}
     >
-      <div style={{ fontSize: 56, marginBottom: 20 }}>🧠</div>
+      <div
+        style={{
+          width: 84,
+          height: 84,
+          borderRadius: 42,
+          backgroundColor: 'rgba(255,255,255,0.08)',
+          border: '1px solid rgba(255,255,255,0.18)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 20,
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          boxShadow: '0 12px 40px rgba(0,0,0,0.4)'
+        }}
+      >
+        <span style={{ fontSize: 40 }}>🧠</span>
+      </div>
       <span className="spinner spinner-large" />
     </div>
   );

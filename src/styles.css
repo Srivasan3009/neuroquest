@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -12,24 +14,26 @@ body,
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: #eef0ff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #0b0f1f;
   background-image:
-    radial-gradient(1200px 600px at 0% 0%, rgba(99, 102, 241, 0.12), transparent 60%),
-    radial-gradient(1000px 500px at 100% 100%, rgba(236, 72, 153, 0.10), transparent 60%);
-  color: #1f2937;
+    radial-gradient(1100px 650px at 12% -8%, rgba(99, 102, 241, 0.55), transparent 60%),
+    radial-gradient(900px 600px at 105% 15%, rgba(139, 92, 246, 0.42), transparent 60%),
+    radial-gradient(1000px 700px at 55% 115%, rgba(232, 179, 75, 0.20), transparent 60%),
+    radial-gradient(700px 500px at 90% 90%, rgba(236, 72, 153, 0.18), transparent 60%);
+  background-attachment: fixed;
+  color: #f4f6ff;
   overflow: hidden;
 }
 
-/* Responsive app frame: full width on phones, fills the whole desktop window
-   (capped at 1500px so it never looks absurd on ultra-wide monitors). */
+/* Premium app frame — frosted edge over the aurora backdrop */
 .app-frame {
   position: relative;
   height: 100%;
   width: 100%;
   max-width: 1500px;
   margin: 0 auto;
-  background: #f8f7ff;
+  background: rgba(11, 15, 31, 0.55);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -39,8 +43,9 @@ body {
   .app-frame {
     height: calc(100vh - 24px);
     margin: 12px auto;
-    border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.14);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -60,6 +65,12 @@ body {
   position: relative;
 }
 
+/* Elegant serif headings (Classic Elegant pairing) */
+.font-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
 /* Buttons used for TouchableOpacity equivalents */
 .tappable {
   background: transparent;
@@ -73,6 +84,7 @@ body {
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
+  transition: transform 0.15s ease, opacity 0.15s ease, filter 0.2s ease;
 }
 
 .tappable.block {
@@ -84,9 +96,18 @@ body {
   cursor: default;
 }
 
+.tappable:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.tappable:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
 .tappable:focus-visible {
-  outline: 2px solid rgba(99, 102, 241, 0.6);
-  outline-offset: -2px;
+  outline: 2px solid rgba(232, 179, 75, 0.8);
+  outline-offset: 2px;
+  border-radius: 8px;
 }
 
 input,
@@ -100,7 +121,7 @@ textarea {
 }
 
 ::placeholder {
-  color: #6b7280;
+  color: #7c86a3;
   opacity: 1;
 }
 
@@ -109,6 +130,7 @@ textarea {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
 }
 
 .scroll::-webkit-scrollbar {
@@ -116,11 +138,16 @@ textarea {
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 3px;
 }
 
-/* Animated background blobs (replaces RN Animated loop) */
+.scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Animated aurora blobs (replaces RN Animated loop) — vibrant enough that
+   the frosted glass panels visibly blur them. */
 .animated-bg {
   position: absolute;
   top: 0;
@@ -135,41 +162,48 @@ textarea {
 .blob {
   position: absolute;
   border-radius: 50%;
-  animation: blobFloat 16s ease-in-out infinite alternate;
+  filter: blur(70px);
+  animation: blobFloat 18s ease-in-out infinite alternate;
 }
 
 .blob-primary {
-  width: 300px;
-  height: 300px;
-  background: rgba(99, 102, 241, 0.08);
-  top: -100px;
-  left: -50px;
+  width: 340px;
+  height: 340px;
+  background: rgba(99, 102, 241, 0.55);
+  top: -120px;
+  left: -60px;
 }
 
 .blob-accent {
-  width: 250px;
-  height: 250px;
-  background: rgba(236, 72, 153, 0.06);
-  bottom: -80px;
-  right: -40px;
-  animation-delay: -5s;
+  width: 280px;
+  height: 280px;
+  background: rgba(236, 72, 153, 0.35);
+  bottom: -90px;
+  right: -50px;
+  animation-delay: -6s;
 }
 
 .blob-purple {
-  width: 200px;
-  height: 200px;
-  background: rgba(139, 92, 246, 0.05);
-  top: 50%;
-  right: 10%;
-  animation-delay: -9s;
+  width: 240px;
+  height: 240px;
+  background: rgba(139, 92, 246, 0.40);
+  top: 45%;
+  right: 8%;
+  animation-delay: -11s;
 }
 
 @keyframes blobFloat {
   from {
-    transform: translateY(0);
+    transform: translate(0, 0) scale(1);
   }
   to {
-    transform: translateY(-30px);
+    transform: translate(-40px, -34px) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none;
   }
 }
 
@@ -178,15 +212,15 @@ textarea {
   display: inline-block;
   width: 22px;
   height: 22px;
-  border: 3px solid rgba(255, 255, 255, 0.35);
+  border: 3px solid rgba(255, 255, 255, 0.3);
   border-top-color: #ffffff;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
 
 .spinner-error {
-  border-color: rgba(239, 68, 68, 0.3);
-  border-top-color: #ef4444;
+  border-color: rgba(248, 113, 113, 0.3);
+  border-top-color: #f87171;
 }
 
 .spinner-large {
@@ -200,12 +234,14 @@ textarea {
   }
 }
 
-/* Tab bar (rendered in normal flow above the scrollable screen) */
+/* Tab bar — frosted glass panel in normal flow above the scrollable screen */
 .tab-bar {
   flex-shrink: 0;
-  height: 56px;
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
+  height: 64px;
+  background: rgba(15, 19, 38, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   z-index: 20;
 }
@@ -216,7 +252,8 @@ textarea {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 3px;
+  border-radius: 12px;
 }
 
 /* Typing dots for tutor "Thinking..." */
@@ -229,7 +266,7 @@ textarea {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #6b7280;
+  background: #a9b0c7;
   animation: blink 1.2s infinite;
 }
 

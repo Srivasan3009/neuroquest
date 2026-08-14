@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GLASS_BG, GLASS_BORDER, SUCCESS, TEXT1, TEXT2 } from '../theme';
+import { GLASS_BORDER, SUCCESS, TEXT1, TEXT2 } from '../theme';
 
 // Port of the original CourseRoadmap component.
 export default function CourseRoadmap({ course, completed, onLessonPress }) {
@@ -22,11 +22,13 @@ export default function CourseRoadmap({ course, completed, onLessonPress }) {
         className="tappable block"
         onClick={() => setIsExpanded((v) => !v)}
         style={{
-          background: GLASS_BG,
-          borderRadius: 20,
+          background: 'rgba(255,255,255,0.06)',
+          borderRadius: 22,
           border: `1px solid ${GLASS_BORDER}`,
           padding: 16,
-          boxShadow: '0 8px 16px rgba(0,0,0,0.10)'
+          boxShadow: '0 8px 24px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
@@ -35,11 +37,12 @@ export default function CourseRoadmap({ course, completed, onLessonPress }) {
               width: 52,
               height: 52,
               borderRadius: 26,
-              backgroundColor: course.color + '22',
+              backgroundColor: course.color + '30',
               alignItems: 'center',
               justifyContent: 'center',
               display: 'flex',
-              marginRight: 12
+              marginRight: 12,
+              border: '1px solid rgba(255,255,255,0.10)'
             }}
           >
             <span style={{ fontSize: 26 }}>{course.locked ? '🔒' : course.icon}</span>
@@ -57,17 +60,19 @@ export default function CourseRoadmap({ course, completed, onLessonPress }) {
         <div
           style={{
             height: 8,
-            backgroundColor: 'rgba(0,0,0,0.1)',
+            backgroundColor: 'rgba(255,255,255,0.10)',
             borderRadius: 4,
-            overflow: 'hidden'
+            overflow: 'hidden',
+            boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.3)'
           }}
         >
           <div
             style={{
               width: progress * 100 + '%',
               height: '100%',
-              backgroundColor: course.color,
-              borderRadius: 4
+              background: course.color,
+              borderRadius: 4,
+              boxShadow: '0 0 10px rgba(255,255,255,0.2)'
             }}
           />
         </div>
@@ -108,22 +113,24 @@ export default function CourseRoadmap({ course, completed, onLessonPress }) {
                   display: 'flex',
                   alignItems: 'center',
                   backgroundColor: isDone
-                    ? course.color + '15'
+                    ? course.color + '22'
                     : isLocked
-                      ? 'rgba(0,0,0,0.05)'
-                      : 'rgba(255,255,255,0.5)',
-                  borderRadius: 12,
+                      ? 'rgba(255,255,255,0.04)'
+                      : 'rgba(255,255,255,0.07)',
+                  borderRadius: 14,
                   padding: 12,
                   border: `1px solid ${
                     isDone
-                      ? course.color + '40'
+                      ? course.color + '45'
                       : isLocked
-                        ? 'rgba(0,0,0,0.1)'
-                        : 'rgba(255,255,255,0.3)'
+                        ? 'rgba(255,255,255,0.06)'
+                        : 'rgba(255,255,255,0.12)'
                   }`,
-                  opacity: isLocked ? 0.6 : 1,
+                  opacity: isLocked ? 0.55 : 1,
                   width: '100%',
-                  textAlign: 'left'
+                  textAlign: 'left',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)'
                 }}
               >
                 <div
@@ -134,7 +141,7 @@ export default function CourseRoadmap({ course, completed, onLessonPress }) {
                     backgroundColor: isDone
                       ? SUCCESS + '22'
                       : isLocked
-                        ? 'rgba(0,0,0,0.1)'
+                        ? 'rgba(255,255,255,0.06)'
                         : course.color + '22',
                     display: 'flex',
                     alignItems: 'center',

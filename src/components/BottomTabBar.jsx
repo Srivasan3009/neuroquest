@@ -1,4 +1,4 @@
-import { PRIMARY, TEXT2 } from '../theme';
+import { GOLD, TEXT2 } from '../theme';
 
 const TABS = [
   { key: 'home', label: 'Home', active: '🏠', inactive: '🏡' },
@@ -20,14 +20,23 @@ export default function BottomTabBar({ active, onChange }) {
             type="button"
             className="tappable tab-item"
             onClick={() => onChange(tab.key)}
-            style={{ color: focused ? PRIMARY : TEXT2 }}
+            style={{ color: focused ? GOLD : TEXT2 }}
           >
-            <span style={{ fontSize: 20 }}>{focused ? tab.active : tab.inactive}</span>
+            <span
+              style={{
+                fontSize: 20,
+                opacity: focused ? 1 : 0.7,
+                filter: focused ? 'drop-shadow(0 0 8px rgba(232,179,75,0.5))' : 'none'
+              }}
+            >
+              {focused ? tab.active : tab.inactive}
+            </span>
             <span
               style={{
                 fontSize: 10,
                 fontWeight: focused ? 700 : 500,
-                color: focused ? PRIMARY : TEXT2
+                color: focused ? GOLD : TEXT2,
+                letterSpacing: 0.2
               }}
             >
               {tab.label}

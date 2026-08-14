@@ -6,11 +6,12 @@ import {
   ACCENT,
   BG,
   GOLD,
-  GLASS_BORDER,
-  PRIMARY,
+  GOLD_GRAD,
+  PRIMARY_GRAD,
   TEXT1,
   TEXT2,
   WEB_TAB_MENU_PADDING,
+  headerGlass,
   glassCard
 } from '../theme';
 import { ALL_LESSONS_FLAT, DAILY_CHALLENGES } from '../data';
@@ -41,7 +42,7 @@ export default function Home({ goTab, openLesson }) {
 
       <div
         style={{
-          backgroundColor: PRIMARY,
+          ...headerGlass,
           paddingTop: 8,
           paddingBottom: 20,
           paddingHorizontal: 20,
@@ -58,10 +59,15 @@ export default function Home({ goTab, openLesson }) {
           }}
         >
           <div style={{ textAlign: 'left' }}>
-            <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, fontWeight: 500 }}>
+            <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13, fontWeight: 500 }}>
               Welcome back!
             </div>
-            <div style={{ color: '#FFFFFF', fontSize: 22, fontWeight: 800 }}>{profile.username}</div>
+            <div
+              className="font-heading"
+              style={{ color: '#FFFFFF', fontSize: 24, fontWeight: 700 }}
+            >
+              {profile.username}
+            </div>
           </div>
           <button type="button" className="tappable" onClick={() => goTab('profile')}>
             <div
@@ -69,10 +75,13 @@ export default function Home({ goTab, openLesson }) {
                 width: 44,
                 height: 44,
                 borderRadius: 22,
-                backgroundColor: 'rgba(255,255,255,0.2)',
+                backgroundColor: 'rgba(255,255,255,0.10)',
+                border: '1px solid rgba(255,255,255,0.18)',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)'
               }}
             >
               {profile.avatar_url ? (
@@ -91,14 +100,14 @@ export default function Home({ goTab, openLesson }) {
           <StatPill
             icon="🔥"
             value={profile.current_streak}
-            bg="rgba(255,255,255,0.2)"
+            bg="rgba(255,255,255,0.10)"
             color="#FDE68A"
           />
-          <StatPill icon="⭐" value={profile.total_xp} bg="rgba(255,255,255,0.2)" color="#FDE68A" />
+          <StatPill icon="⭐" value={profile.total_xp} bg="rgba(255,255,255,0.10)" color="#FDE68A" />
           <StatPill
             icon="❤️"
             value={profile.energy + '/' + profile.max_energy}
-            bg="rgba(255,255,255,0.2)"
+            bg="rgba(255,255,255,0.10)"
             color="#FCA5A5"
           />
         </div>
@@ -106,7 +115,7 @@ export default function Home({ goTab, openLesson }) {
 
       <div className="scroll" style={{ flex: 1, zIndex: 5, minHeight: 0 }}>
         <div className="content-col" style={{ paddingTop: 16, paddingBottom: scrollPad, paddingHorizontal: 16 }}>
-          <div style={{ ...glassCard, marginBottom: 16, boxShadow: '0 8px 16px rgba(99,102,241,0.15)' }}>
+          <div style={{ ...glassCard, marginBottom: 16, boxShadow: '0 8px 32px rgba(99,102,241,0.30), inset 0 1px 0 rgba(255,255,255,0.10)' }}>
             <div
               style={{
                 display: 'flex',
@@ -115,14 +124,14 @@ export default function Home({ goTab, openLesson }) {
                 marginBottom: 8
               }}
             >
-              <span style={{ fontSize: 14, fontWeight: 700, color: TEXT1 }}>
+              <span className="font-heading" style={{ fontSize: 16, fontWeight: 700, color: TEXT1 }}>
                 📊 Level {profile.level}
               </span>
               <span style={{ fontSize: 12, color: TEXT2 }}>
                 {profile.total_xp} / {profile.level * 200} XP
               </span>
             </div>
-            <XPBar progress={xpProgress} color={PRIMARY} height={10} />
+            <XPBar progress={xpProgress} color={PRIMARY_GRAD} height={10} />
           </div>
 
           <div style={{ ...glassCard, marginBottom: 16 }}>
@@ -134,8 +143,10 @@ export default function Home({ goTab, openLesson }) {
                 marginBottom: 12
               }}
             >
-              <span style={{ fontSize: 16, fontWeight: 700, color: TEXT1 }}>🎯 Daily Goal</span>
-              <span style={{ fontSize: 13, color: PRIMARY, fontWeight: 600 }}>
+              <span className="font-heading" style={{ fontSize: 18, fontWeight: 700, color: TEXT1 }}>
+                🎯 Daily Goal
+              </span>
+              <span style={{ fontSize: 13, color: GOLD, fontWeight: 600 }}>
                 {profile.daily_completed}/{profile.daily_goal} lessons
               </span>
             </div>
@@ -152,12 +163,18 @@ export default function Home({ goTab, openLesson }) {
               type="button"
               className="tappable block"
               onClick={() => openLesson(nextLesson.id)}
-              style={{ borderRadius: 20, marginBottom: 16, overflow: 'hidden' }}
+              style={{ borderRadius: 22, marginBottom: 16, overflow: 'hidden' }}
             >
-              <div style={{ backgroundColor: PRIMARY, padding: 20 }}>
+              <div
+                style={{
+                  background: PRIMARY_GRAD,
+                  padding: 20,
+                  boxShadow: '0 12px 36px rgba(99,102,241,0.40), inset 0 1px 0 rgba(255,255,255,0.15)'
+                }}
+              >
                 <div
                   style={{
-                    color: 'rgba(255,255,255,0.7)',
+                    color: 'rgba(255,255,255,0.75)',
                     fontSize: 12,
                     fontWeight: 600,
                     marginBottom: 4,
@@ -167,10 +184,11 @@ export default function Home({ goTab, openLesson }) {
                   📚 {nextLesson.courseTitle} • {nextLesson.unitTitle}
                 </div>
                 <div
+                  className="font-heading"
                   style={{
                     color: '#FFFFFF',
-                    fontSize: 18,
-                    fontWeight: 800,
+                    fontSize: 20,
+                    fontWeight: 700,
                     marginBottom: 12,
                     textAlign: 'left'
                   }}
@@ -191,9 +209,10 @@ export default function Home({ goTab, openLesson }) {
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      backgroundColor: 'rgba(255,255,255,0.2)',
+                      backgroundColor: 'rgba(255,255,255,0.18)',
                       padding: '8px 16px',
-                      borderRadius: 20
+                      borderRadius: 20,
+                      border: '1px solid rgba(255,255,255,0.20)'
                     }}
                   >
                     <span style={{ color: '#FFFFFF', fontSize: 14, fontWeight: 700, marginRight: 4 }}>
@@ -206,7 +225,10 @@ export default function Home({ goTab, openLesson }) {
             </button>
           )}
 
-          <div style={{ fontSize: 18, fontWeight: 800, color: TEXT1, marginBottom: 12 }}>
+          <div
+            className="font-heading"
+            style={{ fontSize: 20, fontWeight: 700, color: TEXT1, marginBottom: 12 }}
+          >
             🏆 Daily Challenges
           </div>
           {DAILY_CHALLENGES.map((ch, idx) => (
@@ -214,7 +236,7 @@ export default function Home({ goTab, openLesson }) {
               key={ch.id}
               style={{
                 ...glassCard,
-                borderRadius: 16,
+                borderRadius: 18,
                 padding: 14,
                 marginBottom: 10,
                 display: 'flex',
@@ -226,7 +248,8 @@ export default function Home({ goTab, openLesson }) {
                   width: 44,
                   height: 44,
                   borderRadius: 22,
-                  backgroundColor: '#EEF2FF',
+                  backgroundColor: 'rgba(129,140,248,0.20)',
+                  border: '1px solid rgba(255,255,255,0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -247,9 +270,10 @@ export default function Home({ goTab, openLesson }) {
           ))}
 
           <div
+            className="font-heading"
             style={{
-              fontSize: 18,
-              fontWeight: 800,
+              fontSize: 20,
+              fontWeight: 700,
               color: TEXT1,
               marginBottom: 12,
               marginTop: 8
@@ -269,7 +293,7 @@ export default function Home({ goTab, openLesson }) {
                 style={{
                   width: '48%',
                   ...glassCard,
-                  borderRadius: 16,
+                  borderRadius: 18,
                   padding: 16,
                   marginBottom: 10,
                   marginRight: i % 2 === 0 ? '4%' : 0,
@@ -277,7 +301,19 @@ export default function Home({ goTab, openLesson }) {
                 }}
               >
                 <div style={{ fontSize: 28, marginBottom: 4 }}>{stat.icon}</div>
-                <div style={{ fontSize: 20, fontWeight: 800, color: PRIMARY }}>{stat.value}</div>
+                <div
+                  className="font-heading"
+                  style={{
+                    fontSize: 22,
+                    fontWeight: 700,
+                    background: GOLD_GRAD,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent'
+                  }}
+                >
+                  {stat.value}
+                </div>
                 <div style={{ fontSize: 12, color: TEXT2, marginTop: 2 }}>{stat.label}</div>
               </div>
             ))}

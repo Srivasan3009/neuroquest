@@ -1,7 +1,7 @@
-import { PURPLE_LIGHT, PRIMARY } from '../theme';
+import { PURPLE_LIGHT } from '../theme';
 
 // Port of the original StatPill component.
-export default function StatPill({ icon, value, bg = PURPLE_LIGHT, color = PRIMARY }) {
+export default function StatPill({ icon, value, bg = PURPLE_LIGHT, color = '#A5B4FC' }) {
   return (
     <div
       style={{
@@ -10,7 +10,10 @@ export default function StatPill({ icon, value, bg = PURPLE_LIGHT, color = PRIMA
         backgroundColor: bg,
         padding: '6px 12px',
         borderRadius: 20,
-        marginRight: 8
+        marginRight: 8,
+        border: '1px solid rgba(255,255,255,0.10)',
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)'
       }}
     >
       <span style={{ fontSize: 16, marginRight: 4 }}>{icon}</span>

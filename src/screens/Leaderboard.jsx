@@ -1,13 +1,13 @@
 import { useProfile } from '../context/ProfileContext';
 import AnimatedBackground from '../components/AnimatedBackground';
 import {
-  ACCENT,
   BG,
-  PRIMARY,
+  GOLD,
   PURPLE_LIGHT,
   TEXT1,
   TEXT2,
   WEB_TAB_MENU_PADDING,
+  headerGlass,
   softCard
 } from '../theme';
 import { MOCK_LEADERBOARD } from '../data';
@@ -23,16 +23,19 @@ export default function Leaderboard() {
     level: profile.level,
     isMe: true
   };
-  const medalColors = ['#FFD700', '#C0C0C0', '#CD7F32'];
+  const medalColors = ['#F5CF6E', '#D8DEE9', '#D9A441'];
 
   return (
     <div style={{ flex: 1, backgroundColor: BG, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       <AnimatedBackground />
-      <div style={{ backgroundColor: PRIMARY, paddingTop: 8, paddingBottom: 20, paddingHorizontal: 20, position: 'relative', zIndex: 10 }}>
-        <div style={{ color: '#FFFFFF', fontSize: 24, fontWeight: 800, marginBottom: 4 }}>
+      <div style={{ ...headerGlass, paddingTop: 8, paddingBottom: 20, paddingHorizontal: 20, position: 'relative', zIndex: 10 }}>
+        <div
+          className="font-heading"
+          style={{ color: '#FFFFFF', fontSize: 26, fontWeight: 700, marginBottom: 4 }}
+        >
           🏆 Leaderboard
         </div>
-        <div style={{ color: 'rgba(255,255,255,0.7)', fontSize: 13 }}>
+        <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13 }}>
           Weekly XP Rankings
         </div>
       </div>
@@ -74,7 +77,8 @@ export default function Leaderboard() {
               marginBottom: 16,
               display: 'flex',
               alignItems: 'center',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.10)'
+              border: '1px solid rgba(232,179,75,0.35)',
+              boxShadow: '0 8px 28px rgba(232,179,75,0.12), inset 0 1px 0 rgba(255,255,255,0.10)'
             }}
           >
             <div
@@ -82,15 +86,16 @@ export default function Leaderboard() {
                 width: 32,
                 height: 32,
                 borderRadius: 16,
-                backgroundColor: ACCENT,
+                background: 'linear-gradient(135deg, #F5CF6E 0%, #D9A441 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginRight: 12,
-                flexShrink: 0
+                flexShrink: 0,
+                boxShadow: '0 4px 12px rgba(232,179,75,0.4)'
               }}
             >
-              <span style={{ color: '#FFFFFF', fontSize: 13, fontWeight: 800 }}>#{meEntry.rank}</span>
+              <span style={{ color: '#1A160B', fontSize: 13, fontWeight: 800 }}>#{meEntry.rank}</span>
             </div>
             <div
               style={{
@@ -98,6 +103,7 @@ export default function Leaderboard() {
                 height: 36,
                 borderRadius: 18,
                 backgroundColor: PURPLE_LIGHT,
+                border: '1px solid rgba(255,255,255,0.14)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -113,17 +119,17 @@ export default function Leaderboard() {
                 <span
                   style={{
                     marginLeft: 8,
-                    backgroundColor: ACCENT,
+                    background: 'linear-gradient(135deg, #F5CF6E 0%, #D9A441 100%)',
                     padding: '2px 6px',
                     borderRadius: 6
                   }}
                 >
-                  <span style={{ color: '#FFFFFF', fontSize: 9, fontWeight: 700 }}>YOU</span>
+                  <span style={{ color: '#1A160B', fontSize: 9, fontWeight: 700 }}>YOU</span>
                 </span>
               </div>
               <div style={{ fontSize: 12, color: TEXT2 }}>Level {meEntry.level}</div>
             </div>
-            <span style={{ fontSize: 15, fontWeight: 800, color: ACCENT }}>
+            <span style={{ fontSize: 15, fontWeight: 800, color: GOLD }}>
               {meEntry.weeklyXP} XP
             </span>
           </div>
@@ -145,7 +151,8 @@ export default function Leaderboard() {
                     width: 32,
                     height: 32,
                     borderRadius: 16,
-                    backgroundColor: medal ? medal + '22' : PURPLE_LIGHT,
+                    backgroundColor: medal ? medal + '26' : PURPLE_LIGHT,
+                    border: medal ? '1px solid ' + medal + '55' : '1px solid rgba(255,255,255,0.12)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -166,7 +173,8 @@ export default function Leaderboard() {
                     width: 36,
                     height: 36,
                     borderRadius: 18,
-                    backgroundColor: user.avatar === '🧠' ? PURPLE_LIGHT : '#FFF3E0',
+                    backgroundColor: user.avatar === '🧠' ? PURPLE_LIGHT : 'rgba(232,179,75,0.14)',
+                    border: '1px solid rgba(255,255,255,0.12)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -181,7 +189,10 @@ export default function Leaderboard() {
                   <div style={{ fontSize: 12, color: TEXT2 }}>Level {user.level}</div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 15, fontWeight: 800, color: PRIMARY }}>
+                  <div
+                    className="font-heading"
+                    style={{ fontSize: 17, fontWeight: 700, color: '#F5CF6E' }}
+                  >
                     {user.weeklyXP}
                   </div>
                   <div style={{ fontSize: 10, color: TEXT2 }}>XP this week</div>

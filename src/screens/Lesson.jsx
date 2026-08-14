@@ -2,12 +2,11 @@ import { useState } from 'react';
 import { useProfile } from '../context/ProfileContext';
 import { navigate } from '../router';
 import {
-  BORDER,
-  CARD,
   ERROR,
-  PRIMARY,
-  PURPLE_LIGHT,
+  ERROR_BG,
+  PRIMARY_GRAD,
   SUCCESS,
+  SUCCESS_BG,
   TEXT1,
   TEXT2,
   BG
@@ -20,7 +19,7 @@ function useLessonState(lessonId) {
     id: lessonId,
     title: 'Lesson',
     xp: 20,
-    courseColor: PRIMARY
+    courseColor: '#6366F1'
   };
   const questions = QUESTIONS_BY_LESSON[lessonId] || DEFAULT_QUESTIONS;
   const [currentStep, setCurrentStep] = useState(0);
@@ -52,7 +51,7 @@ export default function Lesson({ lessonId = 'l-001' }) {
 
   const currentQ = state.questions[state.currentStep];
   const progress = state.currentStep / state.questions.length;
-  const courseColor = state.lesson.courseColor || PRIMARY;
+  const courseColor = state.lesson.courseColor || '#6366F1';
 
   const handleAnswer = (answer, isCorrect) => {
     state.setSelectedAnswer(answer);
@@ -149,10 +148,13 @@ export default function Lesson({ lessonId = 'l-001' }) {
     >
       <div
         style={{
-          backgroundColor: courseColor,
+          background: `linear-gradient(180deg, ${courseColor}55 0%, ${courseColor}22 70%, rgba(255,255,255,0.03) 100%)`,
           paddingTop: 8,
           paddingBottom: 12,
-          paddingHorizontal: 16
+          paddingHorizontal: 16,
+          borderBottom: '1px solid rgba(255,255,255,0.10)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: 12 }}>
@@ -168,7 +170,7 @@ export default function Lesson({ lessonId = 'l-001' }) {
             style={{
               flex: 1,
               height: 8,
-              backgroundColor: 'rgba(255,255,255,0.3)',
+              backgroundColor: 'rgba(255,255,255,0.20)',
               borderRadius: 4,
               overflow: 'hidden'
             }}
@@ -191,7 +193,7 @@ export default function Lesson({ lessonId = 'l-001' }) {
             </span>
           </div>
         </div>
-        <div style={{ color: 'rgba(255,255,255,0.8)', fontSize: 12, fontWeight: 600 }}>
+        <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: 12, fontWeight: 600 }}>
           {state.lesson.title} • Question {state.currentStep + 1} of {state.questions.length}
         </div>
       </div>
@@ -200,7 +202,17 @@ export default function Lesson({ lessonId = 'l-001' }) {
         <div className="scroll" style={{ height: '100%' }}>
           <div className="content-col" style={{ padding: 20, paddingBottom: 140 }}>
             <div style={{ marginBottom: 24 }}>
-              <div style={{ backgroundColor: courseColor + '15', borderRadius: 12, padding: 16, marginBottom: 20 }}>
+              <div
+                style={{
+                  backgroundColor: courseColor + '18',
+                  borderRadius: 14,
+                  padding: 16,
+                  marginBottom: 20,
+                  border: `1px solid ${courseColor}40`,
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)'
+                }}
+              >
                 <div
                   style={{
                     fontSize: 11,
@@ -208,13 +220,15 @@ export default function Lesson({ lessonId = 'l-001' }) {
                     color: courseColor,
                     marginBottom: 6,
                     textTransform: 'uppercase',
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    opacity: 0.9
                   }}
                 >
                   {typeLabel}
                 </div>
                 <div
-                  style={{ fontSize: 18, fontWeight: 700, color: TEXT1, lineHeight: 1.45, textAlign: 'left' }}
+                  className="font-heading"
+                  style={{ fontSize: 20, fontWeight: 700, color: TEXT1, lineHeight: 1.45, textAlign: 'left' }}
                 >
                   {currentQ.text}
                 </div>
@@ -225,21 +239,21 @@ export default function Lesson({ lessonId = 'l-001' }) {
                   const isSelected = state.selectedAnswer === oi;
                   const isCorrect = oi === currentQ.correct;
                   const showResult = state.feedback !== null;
-                  let bgColor = CARD;
-                  let borderColor = BORDER;
+                  let bgColor = 'rgba(255,255,255,0.06)';
+                  let borderColor = 'rgba(255,255,255,0.16)';
                   let textColor = TEXT1;
                   if (showResult && isCorrect) {
-                    bgColor = '#ECFDF5';
+                    bgColor = SUCCESS_BG;
                     borderColor = SUCCESS;
                     textColor = SUCCESS;
                   } else if (showResult && isSelected && !isCorrect) {
-                    bgColor = '#FEF2F2';
+                    bgColor = ERROR_BG;
                     borderColor = ERROR;
                     textColor = ERROR;
                   } else if (!showResult && isSelected) {
-                    bgColor = PURPLE_LIGHT;
-                    borderColor = PRIMARY;
-                    textColor = PRIMARY;
+                    bgColor = 'rgba(129,140,248,0.18)';
+                    borderColor = '#A5B4FC';
+                    textColor = '#C7D2FE';
                   }
                   return (
                     <button
@@ -251,14 +265,17 @@ export default function Lesson({ lessonId = 'l-001' }) {
                         if (!state.feedback) handleAnswer(oi, oi === currentQ.correct);
                       }}
                       style={{
-                        borderRadius: 12,
-                        border: `2px solid ${borderColor}`,
+                        borderRadius: 14,
+                        border: `1.5px solid ${borderColor}`,
                         backgroundColor: bgColor,
                         padding: 14,
                         marginBottom: 10,
                         display: 'flex',
                         alignItems: 'center',
-                        textAlign: 'left'
+                        textAlign: 'left',
+                        backdropFilter: 'blur(10px)',
+                        WebkitBackdropFilter: 'blur(10px)',
+                        boxShadow: '0 4px 16px rgba(0,0,0,0.20)'
                       }}
                     >
                       <div
@@ -266,7 +283,7 @@ export default function Lesson({ lessonId = 'l-001' }) {
                           width: 28,
                           height: 28,
                           borderRadius: 14,
-                          border: `2px solid ${borderColor}`,
+                          border: `1.5px solid ${borderColor}`,
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -300,17 +317,17 @@ export default function Lesson({ lessonId = 'l-001' }) {
                     const isSelected = state.selectedAnswer === opt.value;
                     const isCorrect = opt.value === currentQ.correct;
                     const showResult = state.feedback !== null;
-                    let bgColor = CARD;
-                    let borderColor = BORDER;
+                    let bgColor = 'rgba(255,255,255,0.06)';
+                    let borderColor = 'rgba(255,255,255,0.16)';
                     if (showResult && isCorrect) {
-                      bgColor = '#ECFDF5';
+                      bgColor = SUCCESS_BG;
                       borderColor = SUCCESS;
                     } else if (showResult && isSelected && !isCorrect) {
-                      bgColor = '#FEF2F2';
+                      bgColor = ERROR_BG;
                       borderColor = ERROR;
                     } else if (!showResult && isSelected) {
-                      bgColor = PURPLE_LIGHT;
-                      borderColor = PRIMARY;
+                      bgColor = 'rgba(129,140,248,0.18)';
+                      borderColor = '#A5B4FC';
                     }
                     return (
                       <button
@@ -324,11 +341,13 @@ export default function Lesson({ lessonId = 'l-001' }) {
                         style={{
                           flex: 1,
                           borderRadius: 14,
-                          border: `2px solid ${borderColor}`,
+                          border: `1.5px solid ${borderColor}`,
                           backgroundColor: bgColor,
                           padding: 18,
                           marginRight: oi === 0 ? 8 : 0,
-                          textAlign: 'center'
+                          textAlign: 'center',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)'
                         }}
                       >
                         <div style={{ fontSize: 26, marginBottom: 6 }}>
@@ -345,7 +364,7 @@ export default function Lesson({ lessonId = 'l-001' }) {
                                   ? ERROR
                                   : TEXT2
                               : isSelected
-                                ? PRIMARY
+                                ? '#C7D2FE'
                                 : TEXT1
                           }}
                         >
@@ -361,19 +380,21 @@ export default function Lesson({ lessonId = 'l-001' }) {
                 <div>
                   <div
                     style={{
-                      border: `2px solid ${
+                      border: `1.5px solid ${
                         state.feedback
                           ? state.feedback.correct
                             ? SUCCESS
                             : ERROR
                           : state.fillText
-                            ? PRIMARY
-                            : BORDER
+                            ? '#A5B4FC'
+                            : 'rgba(255,255,255,0.16)'
                       }`,
-                      borderRadius: 12,
-                      backgroundColor: CARD,
+                      borderRadius: 14,
+                      backgroundColor: 'rgba(255,255,255,0.06)',
                       padding: '0 16px',
-                      marginBottom: 12
+                      marginBottom: 12,
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)'
                     }}
                   >
                     <input
@@ -397,11 +418,12 @@ export default function Lesson({ lessonId = 'l-001' }) {
                       onClick={handleFillSubmit}
                       disabled={!state.fillText.trim()}
                       style={{
-                        backgroundColor: PRIMARY,
-                        borderRadius: 12,
+                        background: PRIMARY_GRAD,
+                        borderRadius: 14,
                         padding: 14,
                         textAlign: 'center',
-                        opacity: state.fillText.trim() ? 1 : 0.6
+                        opacity: state.fillText.trim() ? 1 : 0.6,
+                        boxShadow: '0 8px 24px rgba(99,102,241,0.35)'
                       }}
                     >
                       <span style={{ color: '#FFFFFF', fontSize: 15, fontWeight: 700 }}>
@@ -418,8 +440,10 @@ export default function Lesson({ lessonId = 'l-001' }) {
                     borderRadius: 14,
                     padding: 16,
                     marginTop: 16,
-                    backgroundColor: state.feedback.correct ? '#ECFDF5' : '#FEF2F2',
-                    borderLeft: `4px solid ${state.feedback.correct ? SUCCESS : ERROR}`
+                    backgroundColor: state.feedback.correct ? SUCCESS_BG : ERROR_BG,
+                    borderLeft: `4px solid ${state.feedback.correct ? SUCCESS : ERROR}`,
+                    backdropFilter: 'blur(10px)',
+                    WebkitBackdropFilter: 'blur(10px)'
                   }}
                 >
                   <div
@@ -449,8 +473,10 @@ export default function Lesson({ lessonId = 'l-001' }) {
               left: 0,
               right: 0,
               padding: 16,
-              backgroundColor: CARD,
-              borderTop: `1px solid ${BORDER}`
+              backgroundColor: 'rgba(15,19,38,0.7)',
+              borderTop: '1px solid rgba(255,255,255,0.12)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)'
             }}
           >
             <button
@@ -458,10 +484,11 @@ export default function Lesson({ lessonId = 'l-001' }) {
               className="tappable block"
               onClick={handleNext}
               style={{
-                backgroundColor: state.feedback.correct ? SUCCESS : PRIMARY,
+                background: state.feedback.correct ? 'linear-gradient(135deg, #34D399 0%, #10B981 100%)' : PRIMARY_GRAD,
                 borderRadius: 14,
                 padding: 16,
-                textAlign: 'center'
+                textAlign: 'center',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.35)'
               }}
             >
               <span style={{ color: '#FFFFFF', fontSize: 16, fontWeight: 800 }}>

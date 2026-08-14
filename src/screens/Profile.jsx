@@ -9,17 +9,17 @@ import {
   EMOJIS
 } from '../data';
 import {
-  ACCENT,
   BG,
-  BORDER,
   ERROR,
+  ERROR_BG,
   GOLD,
-  PRIMARY,
-  SUCCESS,
+  GOLD_GRAD,
+  PRIMARY_GRAD,
   TEXT1,
   TEXT2,
   WEB_TAB_MENU_PADDING,
   glassCard,
+  headerGlass,
   softCard
 } from '../theme';
 
@@ -123,7 +123,7 @@ export default function Profile() {
       <AnimatedBackground />
       <div
         style={{
-          backgroundColor: PRIMARY,
+          ...headerGlass,
           paddingTop: 8,
           paddingBottom: 24,
           paddingHorizontal: 20,
@@ -145,29 +145,32 @@ export default function Profile() {
           type="button"
           className="tappable"
           onClick={handleTakePhoto}
-          style={{ marginBottom: 12, position: 'relative', width: 80, height: 80 }}
+          style={{ marginBottom: 12, position: 'relative', width: 84, height: 84 }}
         >
           <div
             style={{
-              width: 80,
-              height: 80,
-              borderRadius: 40,
-              backgroundColor: 'rgba(255,255,255,0.2)',
+              width: 84,
+              height: 84,
+              borderRadius: 42,
+              backgroundColor: 'rgba(255,255,255,0.08)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '3px solid #FFFFFF',
-              overflow: 'hidden'
+              border: '2px solid rgba(255,255,255,0.35)',
+              overflow: 'hidden',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              boxShadow: '0 12px 40px rgba(0,0,0,0.35)'
             }}
           >
             {profile.avatar_url ? (
               <img
                 src={profile.avatar_url}
                 alt="avatar"
-                style={{ width: 80, height: 80, borderRadius: 40, objectFit: 'cover' }}
+                style={{ width: 84, height: 84, borderRadius: 42, objectFit: 'cover' }}
               />
             ) : (
-              <span style={{ fontSize: 38 }}>{profile.avatar_emoji}</span>
+              <span style={{ fontSize: 40 }}>{profile.avatar_emoji}</span>
             )}
           </div>
           <div
@@ -175,14 +178,15 @@ export default function Profile() {
               position: 'absolute',
               bottom: 0,
               right: 0,
-              width: 26,
-              height: 26,
-              borderRadius: 13,
-              backgroundColor: ACCENT,
+              width: 28,
+              height: 28,
+              borderRadius: 14,
+              background: GOLD_GRAD,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '2px solid #FFFFFF'
+              border: '2px solid rgba(255,255,255,0.6)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
             }}
           >
             <span style={{ fontSize: 13 }}>📷</span>
@@ -203,7 +207,7 @@ export default function Profile() {
                 fontSize: 20,
                 fontWeight: 700,
                 textAlign: 'center',
-                borderBottom: '2px solid rgba(255,255,255,0.5)',
+                borderBottom: '2px solid rgba(255,255,255,0.4)',
                 paddingBottom: 4,
                 minWidth: 150,
                 marginBottom: 8,
@@ -216,10 +220,10 @@ export default function Profile() {
               value={editBio}
               onChange={(e) => setEditBio(e.target.value)}
               style={{
-                color: 'rgba(255,255,255,0.8)',
+                color: 'rgba(255,255,255,0.75)',
                 fontSize: 13,
                 textAlign: 'center',
-                borderBottom: '1px solid rgba(255,255,255,0.3)',
+                borderBottom: '1px solid rgba(255,255,255,0.25)',
                 paddingBottom: 4,
                 minWidth: 200,
                 marginBottom: 12,
@@ -233,24 +237,26 @@ export default function Profile() {
                 className="tappable"
                 onClick={handleSaveProfile}
                 style={{
-                  backgroundColor: SUCCESS,
+                  background: GOLD_GRAD,
                   padding: '8px 20px',
                   borderRadius: 20,
                   marginRight: 8,
-                  width: 'auto'
+                  width: 'auto',
+                  boxShadow: '0 6px 18px rgba(232,179,75,0.35)'
                 }}
               >
-                <span style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 14 }}>Save</span>
+                <span style={{ color: '#1A160B', fontWeight: 700, fontSize: 14 }}>Save</span>
               </button>
               <button
                 type="button"
                 className="tappable"
                 onClick={() => setIsEditing(false)}
                 style={{
-                  backgroundColor: 'rgba(255,255,255,0.2)',
+                  backgroundColor: 'rgba(255,255,255,0.12)',
                   padding: '8px 20px',
                   borderRadius: 20,
-                  width: 'auto'
+                  width: 'auto',
+                  border: '1px solid rgba(255,255,255,0.16)'
                 }}
               >
                 <span style={{ color: '#FFFFFF', fontWeight: 600, fontSize: 14 }}>Cancel</span>
@@ -259,12 +265,15 @@ export default function Profile() {
           </div>
         ) : (
           <div style={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ color: '#FFFFFF', fontSize: 22, fontWeight: 800, marginBottom: 4 }}>
+            <div
+              className="font-heading"
+              style={{ color: '#FFFFFF', fontSize: 24, fontWeight: 700, marginBottom: 4 }}
+            >
               {profile.username}
             </div>
             <div
               style={{
-                color: 'rgba(255,255,255,0.7)',
+                color: 'rgba(255,255,255,0.65)',
                 fontSize: 13,
                 marginBottom: 12,
                 textAlign: 'center'
@@ -281,10 +290,11 @@ export default function Profile() {
                 setEditBio(profile.bio || '');
               }}
               style={{
-                backgroundColor: 'rgba(255,255,255,0.2)',
+                backgroundColor: 'rgba(255,255,255,0.12)',
                 padding: '6px 16px',
                 borderRadius: 16,
-                width: 'auto'
+                width: 'auto',
+                border: '1px solid rgba(255,255,255,0.16)'
               }}
             >
               <span style={{ color: '#FFFFFF', fontSize: 12, fontWeight: 600 }}>
@@ -306,12 +316,12 @@ export default function Profile() {
                 marginBottom: 10
               }}
             >
-              <span style={{ fontSize: 15, fontWeight: 700, color: TEXT1 }}>
+              <span className="font-heading" style={{ fontSize: 17, fontWeight: 700, color: TEXT1 }}>
                 ⭐ Level {profile.level}
               </span>
               <span style={{ fontSize: 13, color: TEXT2 }}>{profile.total_xp} XP total</span>
             </div>
-            <XPBar progress={xpProgress} color={PRIMARY} height={12} />
+            <XPBar progress={xpProgress} color={PRIMARY_GRAD} height={12} />
             <div style={{ fontSize: 12, color: TEXT2, marginTop: 6 }}>
               {Math.round(xpProgress * 100)}% to Level {profile.level + 1}
             </div>
@@ -335,13 +345,28 @@ export default function Profile() {
                 }}
               >
                 <div style={{ fontSize: 24, marginBottom: 4 }}>{s.icon}</div>
-                <div style={{ fontSize: 18, fontWeight: 800, color: PRIMARY }}>{s.value}</div>
+                <div
+                  className="font-heading"
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 700,
+                    background: GOLD_GRAD,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent'
+                  }}
+                >
+                  {s.value}
+                </div>
                 <div style={{ fontSize: 12, color: TEXT2 }}>{s.label}</div>
               </div>
             ))}
           </div>
 
-          <div style={{ fontSize: 17, fontWeight: 800, color: TEXT1, marginBottom: 12, marginTop: 8 }}>
+          <div
+            className="font-heading"
+            style={{ fontSize: 19, fontWeight: 700, color: TEXT1, marginBottom: 12, marginTop: 8 }}
+          >
             😀 Choose Avatar
           </div>
           <div
@@ -349,7 +374,7 @@ export default function Profile() {
               display: 'flex',
               flexWrap: 'wrap',
               ...glassCard,
-              borderRadius: 16,
+              borderRadius: 18,
               padding: 12,
               marginBottom: 16
             }}
@@ -368,12 +393,14 @@ export default function Profile() {
                   width: 44,
                   height: 44,
                   borderRadius: 22,
-                  backgroundColor: profile.avatar_emoji === em ? '#EEF2FF' : 'transparent',
+                  backgroundColor:
+                    profile.avatar_emoji === em ? 'rgba(129,140,248,0.25)' : 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   margin: 4,
-                  border: profile.avatar_emoji === em ? `2px solid ${PRIMARY}` : '2px solid transparent'
+                  border:
+                    profile.avatar_emoji === em ? '2px solid #A5B4FC' : '2px solid transparent'
                 }}
               >
                 <span style={{ fontSize: 24 }}>{em}</span>
@@ -381,7 +408,7 @@ export default function Profile() {
             ))}
           </div>
 
-          <div style={{ fontSize: 17, fontWeight: 800, color: TEXT1, marginBottom: 12 }}>
+          <div className="font-heading" style={{ fontSize: 19, fontWeight: 700, color: TEXT1, marginBottom: 12 }}>
             🏆 Achievements ({earnedAchIds.length}/{ACHIEVEMENTS_CATALOG.length})
           </div>
           {ACHIEVEMENTS_CATALOG.map((ach, ai) => {
@@ -395,10 +422,10 @@ export default function Profile() {
                   marginBottom: 8,
                   display: 'flex',
                   alignItems: 'center',
-                  opacity: earned ? 1 : 0.6,
-                  background: earned ? undefined : 'rgba(0,0,0,0.03)',
-                  border: earned ? undefined : '1px solid transparent',
-                  boxShadow: earned ? '0 4px 8px rgba(0,0,0,0.08)' : 'none'
+                  opacity: earned ? 1 : 0.55,
+                  background: earned ? undefined : 'rgba(255,255,255,0.03)',
+                  border: earned ? '1px solid rgba(232,179,75,0.25)' : '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: earned ? '0 4px 16px rgba(232,179,75,0.12)' : 'none'
                 }}
               >
                 <div
@@ -406,7 +433,7 @@ export default function Profile() {
                     width: 44,
                     height: 44,
                     borderRadius: 22,
-                    backgroundColor: earned ? GOLD + '22' : BORDER,
+                    backgroundColor: earned ? GOLD + '22' : 'rgba(255,255,255,0.08)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -444,7 +471,10 @@ export default function Profile() {
             );
           })}
 
-          <div style={{ fontSize: 17, fontWeight: 800, color: TEXT1, marginBottom: 12, marginTop: 8 }}>
+          <div
+            className="font-heading"
+            style={{ fontSize: 19, fontWeight: 700, color: TEXT1, marginBottom: 12, marginTop: 8 }}
+          >
             📊 Course Progress
           </div>
           {COURSES.map((course, ci) => {
@@ -488,9 +518,9 @@ export default function Profile() {
               onClick={handleSignOut}
               disabled={signingOut}
               style={{
-                backgroundColor: '#FEF2F2',
+                backgroundColor: ERROR_BG,
                 borderRadius: 16,
-                border: `1px solid ${ERROR}30`,
+                border: '1px solid rgba(248,113,113,0.25)',
                 padding: 16,
                 display: 'flex',
                 alignItems: 'center',

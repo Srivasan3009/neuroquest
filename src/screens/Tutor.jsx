@@ -3,15 +3,13 @@ import { askTutor } from '../tutor';
 import AnimatedBackground from '../components/AnimatedBackground';
 import {
   BG,
-  BORDER,
   ERROR,
-  GLASS_BG,
-  GLASS_BORDER,
-  PRIMARY,
-  PURPLE_LIGHT,
+  ERROR_BG,
+  PRIMARY_GRAD,
   SUCCESS,
   TEXT1,
-  TEXT2
+  TEXT2,
+  headerGlass
 } from '../theme';
 
 const QUICK_QUESTIONS = [
@@ -67,7 +65,7 @@ export default function Tutor() {
       <AnimatedBackground />
       <div
         style={{
-          backgroundColor: PRIMARY,
+          ...headerGlass,
           paddingTop: 8,
           paddingBottom: 16,
           paddingHorizontal: 20,
@@ -81,17 +79,25 @@ export default function Tutor() {
               width: 40,
               height: 40,
               borderRadius: 20,
-              backgroundColor: 'rgba(255,255,255,0.2)',
+              backgroundColor: 'rgba(255,255,255,0.10)',
+              border: '1px solid rgba(255,255,255,0.18)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              marginRight: 12
+              marginRight: 12,
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)'
             }}
           >
             <span style={{ fontSize: 20 }}>🤖</span>
           </div>
           <div style={{ textAlign: 'left' }}>
-            <div style={{ color: '#FFFFFF', fontSize: 18, fontWeight: 800 }}>AI Tutor</div>
+            <div
+              className="font-heading"
+              style={{ color: '#FFFFFF', fontSize: 20, fontWeight: 700 }}
+            >
+              AI Tutor
+            </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <div
                 style={{
@@ -99,10 +105,11 @@ export default function Tutor() {
                   height: 7,
                   borderRadius: 4,
                   backgroundColor: SUCCESS,
-                  marginRight: 5
+                  marginRight: 5,
+                  boxShadow: '0 0 8px rgba(52,211,153,0.8)'
                 }}
               />
-              <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12 }}>Online</span>
+              <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: 12 }}>Online</span>
             </div>
           </div>
         </div>
@@ -128,7 +135,8 @@ export default function Tutor() {
                       width: 32,
                       height: 32,
                       borderRadius: 16,
-                      backgroundColor: PURPLE_LIGHT,
+                      backgroundColor: 'rgba(129,140,248,0.20)',
+                      border: '1px solid rgba(255,255,255,0.12)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -142,13 +150,19 @@ export default function Tutor() {
                 <div
                   style={{
                     maxWidth: '75%',
-                    backgroundColor: isUser ? PRIMARY : GLASS_BG,
-                    borderRadius: 16,
-                    borderBottomRightRadius: isUser ? 4 : 16,
-                    borderBottomLeftRadius: isUser ? 16 : 4,
+                    background: isUser
+                      ? PRIMARY_GRAD
+                      : 'rgba(255,255,255,0.08)',
+                    borderRadius: 18,
+                    borderBottomRightRadius: isUser ? 4 : 18,
+                    borderBottomLeftRadius: isUser ? 18 : 4,
                     padding: 12,
-                    border: isUser ? 'none' : `1px solid ${GLASS_BORDER}`,
-                    boxShadow: isUser ? 'none' : '0 2px 4px rgba(0,0,0,0.08)'
+                    border: isUser ? 'none' : '1px solid rgba(255,255,255,0.14)',
+                    boxShadow: isUser
+                      ? '0 6px 20px rgba(99,102,241,0.35)'
+                      : '0 4px 16px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)',
+                    backdropFilter: isUser ? 'none' : 'blur(12px)',
+                    WebkitBackdropFilter: isUser ? 'none' : 'blur(12px)'
                   }}
                 >
                   <div
@@ -174,7 +188,8 @@ export default function Tutor() {
                   width: 32,
                   height: 32,
                   borderRadius: 16,
-                  backgroundColor: PURPLE_LIGHT,
+                  backgroundColor: 'rgba(129,140,248,0.20)',
+                  border: '1px solid rgba(255,255,255,0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -185,11 +200,13 @@ export default function Tutor() {
               </div>
               <div
                 style={{
-                  backgroundColor: GLASS_BG,
-                  borderRadius: 16,
+                  backgroundColor: 'rgba(255,255,255,0.08)',
+                  borderRadius: 18,
                   borderBottomLeftRadius: 4,
                   padding: 14,
-                  border: `1px solid ${GLASS_BORDER}`
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)'
                 }}
               >
                 <span className="thinking-dots">
@@ -205,11 +222,13 @@ export default function Tutor() {
           {tutorError && (
             <div
               style={{
-                backgroundColor: '#FEF2F2',
+                backgroundColor: ERROR_BG,
                 borderRadius: 12,
                 padding: 12,
                 marginBottom: 8,
-                borderLeft: `3px solid ${ERROR}`
+                borderLeft: `3px solid ${ERROR}`,
+                backdropFilter: 'blur(8px)',
+                WebkitBackdropFilter: 'blur(8px)'
               }}
             >
               <div style={{ color: ERROR, fontSize: 13 }}>{tutorError}</div>
@@ -237,15 +256,17 @@ export default function Tutor() {
                     className="tappable"
                     onClick={() => sendMessage(q)}
                     style={{
-                      backgroundColor: GLASS_BG,
+                      backgroundColor: 'rgba(255,255,255,0.08)',
                       borderRadius: 20,
                       padding: '8px 12px',
                       margin: 4,
-                      border: `1px solid ${GLASS_BORDER}`,
-                      width: 'auto'
+                      border: '1px solid rgba(255,255,255,0.14)',
+                      width: 'auto',
+                      backdropFilter: 'blur(10px)',
+                      WebkitBackdropFilter: 'blur(10px)'
                     }}
                   >
-                    <span style={{ color: PRIMARY, fontSize: 12, fontWeight: 600 }}>{q}</span>
+                    <span style={{ color: '#A5B4FC', fontSize: 12, fontWeight: 600 }}>{q}</span>
                   </button>
                 ))}
               </div>
@@ -256,24 +277,28 @@ export default function Tutor() {
 
       <div
         style={{
-          backgroundColor: GLASS_BG,
-          borderTop: `1px solid ${GLASS_BORDER}`,
+          backgroundColor: 'rgba(15,19,38,0.55)',
+          borderTop: '1px solid rgba(255,255,255,0.12)',
           padding: 12,
           position: 'relative',
-          zIndex: 10
+          zIndex: 10,
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)'
         }}
       >
         <div style={{ display: 'flex', alignItems: 'flex-end' }}>
           <div
             style={{
               flex: 1,
-              backgroundColor: BG,
+              backgroundColor: 'rgba(255,255,255,0.07)',
               borderRadius: 24,
-              border: `1.5px solid ${inputText ? PRIMARY : BORDER}`,
+              border: `1px solid ${inputText ? '#A5B4FC' : 'rgba(255,255,255,0.14)'}`,
               padding: '10px 16px',
               marginRight: 10,
               maxHeight: 100,
-              overflowY: 'auto'
+              overflowY: 'auto',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)'
             }}
           >
             <textarea
@@ -300,11 +325,12 @@ export default function Tutor() {
               width: 44,
               height: 44,
               borderRadius: 22,
-              backgroundColor: inputText.trim() ? PRIMARY : BORDER,
+              background: inputText.trim() ? PRIMARY_GRAD : 'rgba(255,255,255,0.10)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              flexShrink: 0
+              flexShrink: 0,
+              boxShadow: inputText.trim() ? '0 6px 20px rgba(99,102,241,0.4)' : 'none'
             }}
           >
             <span style={{ fontSize: 18 }}>🚀</span>
