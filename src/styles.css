@@ -21,17 +21,27 @@ body {
   overflow: hidden;
 }
 
-/* Phone-frame: keeps the original mobile layout centered on desktop */
+/* Responsive app frame: full width on phones, fills desktop screens,
+   and stretches up to 1200px wide (centered) on larger monitors. */
 .app-frame {
   position: relative;
   height: 100%;
-  max-width: 480px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   background: #f8f7ff;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+@media (min-width: 700px) {
+  .app-frame {
+    height: calc(100vh - 32px);
+    margin: 16px auto;
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.14);
+  }
 }
 
 .frame-root {
